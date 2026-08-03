@@ -21,7 +21,10 @@ LOGGER = logging.getLogger(__name__)
 # restarting the Python process, which attempts that initialization a second
 # time and raises ``PDX has already been initialized``. PaddleOCR initializes
 # its inference pipeline lazily, so deferring this import-time setup is safe.
-os.environ.setdefault("PADDLE_PDX_EAGER_INIT", "False")
+# Disable PaddleX eager initialization, oneDNN crash on CPU, and connectivity check.
+os.environ["PADDLE_PDX_EAGER_INIT"] = "False"
+os.environ["PADDLE_PDX_ENABLE_MKLDNN_BYDEFAULT"] = "False"
+os.environ["PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK"] = "True"
 
 
 @st.cache_resource(show_spinner=False)
@@ -41,4 +44,9 @@ def get_ocr_engine() -> Any:
         ) from exc
 
     LOGGER.info("Initializing shared PaddleOCR/PaddleX resource.")
-    return PaddleOCR(use_angle_cls=True, lang="id", show_log=False)
+    return PaddleOCR(
+        lang="id",
+        use_textline_orientation=True,
+        use_doc_orientation_classify=False,
+        use_doc_unwarping=False,
+    )

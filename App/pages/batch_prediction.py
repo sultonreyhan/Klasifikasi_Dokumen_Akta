@@ -4,6 +4,12 @@ State machine: idle → validating → processing → result.
 (Blueprint Section 5.3, 12.4, 13.2, 20, 22.)
 """
 
+import os
+# Configure PaddleX environment variables process-wide before any imports
+os.environ["PADDLE_PDX_EAGER_INIT"] = "False"
+os.environ["PADDLE_PDX_ENABLE_MKLDNN_BYDEFAULT"] = "False"
+os.environ["PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK"] = "True"
+
 import sys
 from pathlib import Path
 

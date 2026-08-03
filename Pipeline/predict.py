@@ -172,7 +172,7 @@ def _ocr_page(page) -> Optional[str]:
     """Best-effort OCR of a page using the shared PaddleOCR engine."""
     try:
         ocr = get_ocr_engine()
-        result = ocr.ocr(page.get_pixmap(dpi=200), cls=True)
+        result = ocr.ocr(page.get_pixmap(dpi=200))
         lines = []
         for block in result or []:
             for line in block or []:

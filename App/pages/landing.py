@@ -4,6 +4,12 @@ Hero, mode selection, model info card, and how-it-works
 (Blueprint Section 5.1). V1.1 design pass: Lucide icons, card layout.
 """
 
+import os
+# Configure PaddleX environment variables process-wide before any imports
+os.environ["PADDLE_PDX_EAGER_INIT"] = "False"
+os.environ["PADDLE_PDX_ENABLE_MKLDNN_BYDEFAULT"] = "False"
+os.environ["PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK"] = "True"
+
 import sys
 from pathlib import Path
 

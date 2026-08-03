@@ -63,7 +63,7 @@ def _ocr_image(image_path: Path) -> str:
         ocr = get_ocr_engine()
     except RuntimeError as exc:
         raise ValueError(str(exc)) from exc
-    result = ocr.ocr(str(image_path), cls=True)
+    result = ocr.ocr(str(image_path))
     lines: list[str] = []
     for block in result or []:
         for line in block or []:
