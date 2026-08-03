@@ -4,7 +4,15 @@ State machine: idle → validating → extracting → predicting → result.
 (Blueprint Section 5.2, 12, 13, 14, 15, 16.)
 """
 
+import sys
+from pathlib import Path
+
 import streamlit as st
+
+# Ensure the project root is on sys.path when this page is imported directly.
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+if str(_PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(_PROJECT_ROOT))
 
 from App.components.document_builder import render_document_builder
 from App.components.error_display import render_model_missing_error, render_validation_error

@@ -4,8 +4,16 @@ State machine: idle → validating → processing → result.
 (Blueprint Section 5.3, 12.4, 13.2, 20, 22.)
 """
 
+import sys
+from pathlib import Path
+
 import pandas as pd
 import streamlit as st
+
+# Ensure the project root is on sys.path when this page is imported directly.
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+if str(_PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(_PROJECT_ROOT))
 
 from App.components.batch_result_table import render_batch_result_table
 from App.components.error_display import (
