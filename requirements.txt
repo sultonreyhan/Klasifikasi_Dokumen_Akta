@@ -1,0 +1,21 @@
+# Core ML
+torch
+transformers
+sentencepiece
+numpy
+pandas
+scikit-learn
+joblib
+tqdm
+
+# Text extraction / OCR
+PyMuPDF
+paddleocr
+opencv-python
+
+# Explainability
+shap
+
+# Application
+streamlit
+openpyxl

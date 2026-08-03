@@ -1,0 +1,32 @@
+/* AktaSense — Custom Streamlit styling overrides.
+   Design language: Modern Legal Tech (Blueprint Section 10). */
+
+/* Typography baseline already injected via session_helpers.inject_custom_font. */
+
+/* Card-style containers */
+[data-testid="stVerticalBlock"] .stContainer {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+}
+
+/* Soften primary button radius to match design language */
+.stButton > button[kind="primary"] {
+    border-radius: 6px;
+}
+
+/* Metrics: keep slate text color */
+[data-testid="stMetricValue"] {
+    color: #1E293B;
+}
+
+/* Dividers match border token */
+[data-testid="stHorizontalBlock"] hr,
+hr {
+    border-color: #E2E8F0;
+}
+
+/* Reduce default heading spacing to feel like a legal-tech tool */
+h1, h2, h3 {
+    letter-spacing: -0.01em;
+}
