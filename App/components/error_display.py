@@ -1,12 +1,15 @@
 """Error display component for AktaSense.
 
 Renders validation, OCR, and prediction errors with an actionable
-suggestion (Blueprint Section 16, Layer 1–4).
+suggestion (Blueprint Section 16, Layer 1–4). V1.1 design pass: Lucide
+icons instead of emoji.
 """
 
 from __future__ import annotations
 
 import streamlit as st
+
+from App.utils.icons import inline_icon
 
 # ── Default messages (Indonesian, per Blueprint Section 16) ────────────────
 
@@ -33,7 +36,7 @@ def render_validation_error(message: str | None = None,
     """Render a red error banner for validation failures."""
     title = message or DEFAULT_VALIDATION_TITLE
     hint = suggestion or DEFAULT_VALIDATION_SUGGESTION
-    st.error(f"**❌ {title}**\n\n{hint}")
+    st.error(f"**{inline_icon('x-circle', 14)}{title}**\n\n{hint}")
 
 
 def render_ocr_error(message: str | None = None,
@@ -41,7 +44,7 @@ def render_ocr_error(message: str | None = None,
     """Render a warning banner for OCR / extraction failures."""
     title = message or DEFAULT_OCR_TITLE
     hint = suggestion or DEFAULT_OCR_SUGGESTION
-    st.warning(f"**⚠️ {title}**\n\n{hint}")
+    st.warning(f"**{inline_icon('alert-triangle', 14)}{title}**\n\n{hint}")
 
 
 def render_prediction_error(message: str | None = None,
@@ -49,13 +52,13 @@ def render_prediction_error(message: str | None = None,
     """Render a red error banner for prediction failures."""
     title = message or DEFAULT_PREDICTION_TITLE
     hint = suggestion or DEFAULT_PREDICTION_SUGGESTION
-    st.error(f"**❌ {title}**\n\n{hint}")
+    st.error(f"**{inline_icon('x-circle', 14)}{title}**\n\n{hint}")
 
 
 def render_model_missing_error() -> None:
     """Render the permanent banner when ML artifacts are unavailable."""
     st.error(
-        "**❌ Model AI tidak ditemukan.**\n\n"
+        f"**{inline_icon('alert-triangle', 14)}Model AI tidak ditemukan.**\n\n"
         "Pastikan file `Models/random_forest.pkl` dan "
         "`Models/label_encoder.pkl` tersedia.\n\n"
         "Jalankan `Pipeline/train.py` untuk melatih model terlebih dahulu."

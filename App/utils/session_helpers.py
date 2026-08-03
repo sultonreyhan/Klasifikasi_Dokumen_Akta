@@ -14,16 +14,17 @@ from pathlib import Path
 
 _FONT_CSS = """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
 
 html, body, [class*="css"] {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-/* OCR text area uses monospace */
+/* OCR text area uses monospace (design system also applies this in style.css) */
 textarea[aria-label="Teks yang berhasil diekstraksi"] {
-    font-family: 'JetBrains Mono', monospace !important;
+    font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace !important;
     font-size: 13px !important;
+    line-height: 1.5;
 }
 </style>
 """

@@ -24,11 +24,14 @@ from App.utils.file_validator import (
     MAX_FILE_SIZE_MB,
     validate_batch,
 )
+from App.utils.icons import icon, icon_heading, inline_icon
 from App.utils.session_helpers import init_session_state, reset_batch_state
 
 init_session_state()
 
-st.title("📂 Prediksi Batch")
+st.markdown(
+    icon_heading("folder", "Prediksi Batch"), unsafe_allow_html=True
+)
 
 # ── Model availability gate ────────────────────────────────────────────────
 if not st.session_state.get("pipeline_ready"):
@@ -81,7 +84,7 @@ elif stage == "validating":
         render_validation_error(message=st.session_state["batch_error"])
         st.session_state["batch_error"] = None
 
-    st.subheader("🔎 Validasi File")
+    st.subheader(f"{icon('file-check', 15)} Validasi File")
 
     table_rows = []
     for idx, item in enumerate(validation, start=1):
@@ -90,7 +93,7 @@ elif stage == "validating":
                 "No": idx,
                 "Nama File": item["filename"],
                 "Ukuran (MB)": item.get("size_mb"),
-                "Status": "✅ Valid" if item["valid"] else "❌ Tidak Valid",
+                "Status": "Valid" if item["valid"] else "Tidak Valid",
                 "Keterangan": item.get("reason") or "-",
             }
         )
@@ -106,7 +109,7 @@ elif stage == "validating":
 
     col_process, col_reset = st.columns([1, 1])
     if col_process.button(
-        f"Proses {valid_count} File Valid",
+        f"{icon('play', 15)} Proses {valid_count} File Valid",
         type="primary",
         disabled=valid_count == 0,
         width="stretch",
@@ -118,7 +121,7 @@ elif stage == "validating":
         st.rerun()
 
     if col_reset.button(
-        "Batal / Pilih Ulang",
+        f"{icon('rotate-ccw', 15)} Batal / Pilih Ulang",
         width="stretch",
         key="batch_cancel",
     ):
@@ -138,7 +141,7 @@ elif stage == "processing":
         st.session_state["batch_stage"] = "validating"
         st.rerun()
 
-    st.subheader("🔄 Memproses Dokumen")
+    st.subheader(f"{icon('refresh-cw', 15)} Memproses Dokumen")
 
     progress_bar = st.progress(0.0)
     status_text = st.empty()
@@ -186,7 +189,7 @@ elif stage == "result":
                 include_optional=False,
             )
             st.download_button(
-                label="⬇️ Download Hasil Excel",
+                label=f"{icon('download', 15)} Download Hasil Excel",
                 data=excel_bytes,
                 file_name=build_download_name(),
                 mime=EXCEL_MIME,
@@ -197,7 +200,7 @@ elif stage == "result":
             st.error(f"Gagal membuat file Excel: {exc}")
 
     if st.button(
-        "🔄 Prediksi Ulang",
+        f"{icon('rotate-ccw', 15)} Prediksi Ulang",
         type="secondary",
         width="stretch",
         key="batch_reset",

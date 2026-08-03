@@ -3,6 +3,7 @@
 Renders read-only model metadata on the Landing page
 (Blueprint Section 5.1; data always read dynamically from
 ``Models/training_metadata.json`` — confirmed decision C1).
+V1.1 design pass: Lucide icon + pill chips from the design system.
 """
 
 from __future__ import annotations
@@ -11,18 +12,16 @@ from typing import Any, Dict, List
 
 import streamlit as st
 
+from App.utils.icons import icon
 from App.utils.label_mapper import get_all_classes_with_display
 
 
 def _class_chips(label_list: List[str]) -> str:
-    """Build inline HTML chips for every class display name."""
+    """Build inline HTML pill chips for every class display name."""
     chips = []
     for item in get_all_classes_with_display(label_list):
         chips.append(
-            f'<span style="background:#EEF2FD;border:1px solid #1B4FD8;'
-            f'color:#1B4FD8;border-radius:4px;padding:2px 8px;'
-            f'font-size:13px;font-weight:600;margin:2px;display:inline-block;">'
-            f'{item["display_name"]}</span>'
+            f'<span class="akta-chip">{item["display_name"]}</span>'
         )
     return "".join(chips)
 
@@ -35,7 +34,11 @@ def render_model_info(metadata: Dict[str, Any]) -> None:
             :func:`App.services.metadata_service.load_model_metadata`.
             If empty, a "metadata unavailable" note is shown.
     """
-    st.markdown("### ℹ️ Model AI")
+    st.markdown(
+        f'<div class="akta-page-title" style="font-size:1.4rem;">'
+        f'{icon("database", 18)}<span>Model AI</span></div>',
+        unsafe_allow_html=True,
+    )
 
     if not metadata:
         st.caption("Metadata model tidak tersedia.")

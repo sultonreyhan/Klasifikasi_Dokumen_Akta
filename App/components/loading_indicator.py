@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import streamlit as st
 
+from App.utils.icons import icon
+
 # ── Message helpers ────────────────────────────────────────────────────────
 
 EXTRACT_PDF_NATIVE_MSG = "Mengekstraksi teks dari dokumen PDF..."
@@ -36,4 +38,6 @@ def render_loading(stage_label: str) -> None:
 
 def batch_wait_message() -> None:
     """Render the persistent wait note for batch processing."""
-    st.caption(f"ℹ️ {_BATCH_WAIT_MSG}")
+    st.caption(
+        f"{icon('info', 13)} {_BATCH_WAIT_MSG}", unsafe_allow_html=True
+    )

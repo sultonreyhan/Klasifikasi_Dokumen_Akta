@@ -11,6 +11,7 @@ from typing import Optional
 import streamlit as st
 
 from App.utils.file_validator import SINGLE_ALLOWED_EXTENSIONS, MAX_FILE_SIZE_MB
+from App.utils.icons import icon
 
 _UPLOAD_HELP = (
     "Format: PDF, PNG, JPG, JPEG. "
@@ -63,7 +64,9 @@ def render_document_builder(on_upload_callback=None, on_camera_callback=None):
         ``(file, source)`` where ``file`` is the selected UploadedFile
         (or None) and ``source`` is ``"upload"`` / ``"camera"`` / None.
     """
-    tab_upload, tab_camera = st.tabs(["⬆️ Upload File", "📷 Kamera"])
+    tab_upload, tab_camera = st.tabs(
+        [f"{icon('upload', 14)} Upload File", f"{icon('camera', 14)} Kamera"]
+    )
 
     with tab_upload:
         uploaded_file = _render_file_tab()

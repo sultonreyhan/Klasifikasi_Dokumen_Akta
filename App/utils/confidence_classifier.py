@@ -22,7 +22,7 @@ _MID_THRESHOLD: float = 0.50
 
 CONFIDENCE_COLORS: dict[str, str] = {
     "TINGGI": "#16A34A",   # Success Green
-    "SEDANG": "#D97706",   # Warning Amber
+    "SEDANG": "#F59E0B",   # Warning Amber
     "RENDAH": "#DC2626",   # Error Red
 }
 

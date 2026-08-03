@@ -26,7 +26,7 @@ from App.services.prediction_service import load_pipeline_resources
 # ── Page configuration ─────────────────────────────────────────────────────
 st.set_page_config(
     page_title="AktaSense",
-    page_icon="📄",
+    page_icon=":material/description:",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -46,8 +46,29 @@ if st.session_state["model_metadata"] is None:
         # Non-fatal: pages will show an appropriate warning if None.
 
 # ── Sidebar: branding + model status ──────────────────────────────────────
+_LOGO = _PROJECT_ROOT / "Assets" / "logo.png"
+
+
+def _logo_data_uri() -> str:
+    """Base64 data URI of the logo so it can be inlined in sidebar HTML."""
+    try:
+        import base64
+
+        return "data:image/png;base64," + base64.b64encode(
+            _LOGO.read_bytes()
+        ).decode("ascii")
+    except OSError:
+        return ""
+
+
 with st.sidebar:
-    st.markdown("## 📄 AktaSense")
+    st.markdown(
+        '<div class="akta-brand">'
+        f'<img class="akta-brand-logo" src="{_logo_data_uri()}" alt="AktaSense" />'
+        f'<span class="akta-brand-name">AktaSense</span>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
     st.caption("Klasifikasi Dokumen Akta Notaris & PPAT")
     st.divider()
 
@@ -76,7 +97,7 @@ with st.sidebar:
                 )
 
     if st.session_state["pipeline_ready"]:
-        st.success("Model dimuat ✅")
+        st.success("Model dimuat")
 
 # ── Navigation ─────────────────────────────────────────────────────────────
 # Page paths are resolved from __file__ (absolute) so the app works
@@ -86,18 +107,18 @@ _PAGES_DIR = Path(__file__).resolve().parent / "pages"
 landing_page = st.Page(
     _PAGES_DIR / "landing.py",
     title="Beranda",
-    icon="🏠",
+    icon=":material/home:",
     default=True,
 )
 single_page = st.Page(
     _PAGES_DIR / "single_prediction.py",
     title="Prediksi Dokumen",
-    icon="📄",
+    icon=":material/description:",
 )
 batch_page = st.Page(
     _PAGES_DIR / "batch_prediction.py",
     title="Prediksi Batch",
-    icon="📂",
+    icon=":material/folder:",
 )
 
 pg = st.navigation([landing_page, single_page, batch_page])

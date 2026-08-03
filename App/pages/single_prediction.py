@@ -21,12 +21,15 @@ from App.services.ocr_service import extract_and_preview
 from App.services.prediction_service import run_single_prediction
 from App.utils.confidence_classifier import classify as classify_confidence
 from App.utils.file_validator import validate_single
+from App.utils.icons import icon, icon_heading, inline_icon
 from App.utils.label_mapper import get_display_name, get_taxonomy
 from App.utils.session_helpers import init_session_state, reset_single_state
 
 init_session_state()
 
-st.title("📄 Prediksi Dokumen")
+st.markdown(
+    icon_heading("file-text", "Prediksi Dokumen"), unsafe_allow_html=True
+)
 
 # ── Model availability gate ────────────────────────────────────────────────
 if not st.session_state.get("pipeline_ready"):
@@ -62,7 +65,7 @@ if stage == "idle":
         st.session_state["single_uploaded_file"] = uploaded_file
         st.session_state["single_file_source"] = source
         if st.button(
-            "Proses Dokumen",
+            f"{icon('play', 15)} Proses Dokumen",
             type="primary",
             width="stretch",
             key="single_proceed",
@@ -148,7 +151,7 @@ elif stage == "result":
         st.session_state["single_stage"] = "idle"
         st.rerun()
 
-    st.success("✅ Klasifikasi Selesai")
+    st.success(f"{inline_icon('check-circle', 15)} Klasifikasi Selesai")
 
     display_name = get_display_name(result.predicted_class)
     taxonomy = get_taxonomy(result.predicted_class)
@@ -160,7 +163,7 @@ elif stage == "result":
         taxonomy=taxonomy,
     )
 
-    with st.expander("📊 Ringkasan Prediksi", expanded=True):
+    with st.expander("Ringkasan Prediksi", expanded=True):
         render_prediction_summary(
             confidence_score=result.confidence_score,
             confidence_label=confidence_label,
@@ -168,7 +171,7 @@ elif stage == "result":
             highlight_class=result.predicted_class,
         )
 
-    with st.expander("🔍 Analisis Dokumen", expanded=False):
+    with st.expander("Analisis Dokumen", expanded=False):
         render_prediction_insight(
             shap_explanation=result.shap_explanation,
             predicted_class=result.predicted_class,
@@ -179,7 +182,7 @@ elif stage == "result":
     )
 
     if st.button(
-        "Prediksi Dokumen Lain",
+        f"{icon('rotate-ccw', 15)} Prediksi Dokumen Lain",
         type="secondary",
         width="stretch",
         key="single_reset",
