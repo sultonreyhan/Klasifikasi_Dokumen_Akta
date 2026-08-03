@@ -1,21 +1,26 @@
-# Core ML
-torch
-transformers
-sentencepiece
+# Machine Learning
 numpy
 pandas
 scikit-learn
 joblib
 tqdm
 
-# Text extraction / OCR
+torch
+torchvision
+transformers
+sentence-transformers
+sentencepiece
+
+# OCR
 PyMuPDF
 paddleocr
-opencv-python
+paddlex
+opencv-python-headless
+Pillow
 
 # Explainability
 shap
 
-# Application
+# Streamlit
 streamlit
 openpyxl
