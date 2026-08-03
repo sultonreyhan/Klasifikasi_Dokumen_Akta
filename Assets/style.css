@@ -220,9 +220,11 @@ button[aria-label="Main menu"]:hover {
   box-shadow: var(--akta-shadow);
   overflow: hidden;
 }
-[data-testid="stExpander"] details summary {
+[data-testid="stExpander"] details summary:not(:hover) {
+  background: var(--akta-card) !important;
+  border-color: var(--akta-border) !important;
   font-weight: 600;
-  color: var(--akta-text);
+  color: var(--akta-text) !important;
 }
 
 /* ── Buttons ──────────────────────────────────────────────────────────── */
@@ -254,6 +256,12 @@ button[aria-label="Main menu"]:hover {
 .stDownloadButton > button[kind="secondary"]:hover {
   background: var(--akta-primary-tint);
   color: var(--akta-primary-hover);
+}
+.stButton > button[kind="secondary"]:not(:hover),
+.stDownloadButton > button[kind="secondary"]:not(:hover) {
+  background: var(--akta-primary-tint) !important;
+  border: 1px solid var(--akta-primary-border) !important;
+  color: var(--akta-primary-hover) !important;
 }
 
 /* Icons inside buttons inherit the button text colour. */
