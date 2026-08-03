@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import streamlit as st
 
-from App.utils.icons import inline_icon
+from App.utils.icons import icon_markdown
 
 # ── Default messages (Indonesian, per Blueprint Section 16) ────────────────
 
@@ -36,7 +36,7 @@ def render_validation_error(message: str | None = None,
     """Render a red error banner for validation failures."""
     title = message or DEFAULT_VALIDATION_TITLE
     hint = suggestion or DEFAULT_VALIDATION_SUGGESTION
-    st.error(f"**{inline_icon('x-circle', 14)}{title}**\n\n{hint}")
+    st.error(f"**{icon_markdown('x-circle', 14, 'error')} {title}**\n\n{hint}")
 
 
 def render_ocr_error(message: str | None = None,
@@ -44,7 +44,9 @@ def render_ocr_error(message: str | None = None,
     """Render a warning banner for OCR / extraction failures."""
     title = message or DEFAULT_OCR_TITLE
     hint = suggestion or DEFAULT_OCR_SUGGESTION
-    st.warning(f"**{inline_icon('alert-triangle', 14)}{title}**\n\n{hint}")
+    st.warning(
+        f"**{icon_markdown('alert-triangle', 14, 'peringatan')} {title}**\n\n{hint}"
+    )
 
 
 def render_prediction_error(message: str | None = None,
@@ -52,14 +54,14 @@ def render_prediction_error(message: str | None = None,
     """Render a red error banner for prediction failures."""
     title = message or DEFAULT_PREDICTION_TITLE
     hint = suggestion or DEFAULT_PREDICTION_SUGGESTION
-    st.error(f"**{inline_icon('x-circle', 14)}{title}**\n\n{hint}")
+    st.error(f"**{icon_markdown('x-circle', 14, 'error')} {title}**\n\n{hint}")
 
 
 def render_model_missing_error() -> None:
     """Render the permanent banner when ML artifacts are unavailable."""
-    st.error(
-        f"**{inline_icon('alert-triangle', 14)}Model AI tidak ditemukan.**\n\n"
-        "Pastikan file `Models/random_forest.pkl` dan "
-        "`Models/label_encoder.pkl` tersedia.\n\n"
-        "Jalankan `Pipeline/train.py` untuk melatih model terlebih dahulu."
+    st.warning(
+        f"**{icon_markdown('alert-triangle', 14, 'peringatan')} "
+        "Model belum tersedia.**\n\n"
+        "Silakan jalankan proses training terlebih dahulu.\n\n"
+        "`python Pipeline/train.py`"
     )

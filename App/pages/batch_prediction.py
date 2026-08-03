@@ -32,7 +32,7 @@ from App.utils.file_validator import (
     MAX_FILE_SIZE_MB,
     validate_batch,
 )
-from App.utils.icons import icon, icon_heading, icon_markdown, inline_icon
+from App.utils.icons import icon_heading, icon_markdown
 from App.utils.session_helpers import init_session_state, reset_batch_state
 
 init_session_state()
@@ -92,7 +92,9 @@ elif stage == "validating":
         render_validation_error(message=st.session_state["batch_error"])
         st.session_state["batch_error"] = None
 
-    st.subheader(f"{icon('file-check', 15)} Validasi File")
+    st.subheader(
+        f"{icon_markdown('file-check', 15, 'validasi')} Validasi File"
+    )
 
     table_rows = []
     for idx, item in enumerate(validation, start=1):

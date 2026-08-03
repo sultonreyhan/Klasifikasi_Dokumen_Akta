@@ -20,6 +20,7 @@ if str(_PROJECT_ROOT) not in sys.path:
 import streamlit as st
 
 from App.utils.session_helpers import init_session_state, inject_custom_font
+from App.components.error_display import render_model_missing_error
 from App.services.metadata_service import load_model_metadata
 from App.services.prediction_service import load_pipeline_resources
 
@@ -87,14 +88,12 @@ with st.sidebar:
             try:
                 load_pipeline_resources()
                 st.session_state["pipeline_ready"] = True
+            except FileNotFoundError:
+                st.session_state["pipeline_ready"] = False
+                render_model_missing_error()
             except Exception as exc:
                 st.session_state["pipeline_ready"] = False
-                st.error(
-                    "Model AI tidak ditemukan. "
-                    "Pastikan `Models/random_forest.pkl` dan "
-                    "`Models/label_encoder.pkl` tersedia.\n\n"
-                    "Jalankan `Pipeline/train.py` untuk melatih model terlebih dahulu."
-                )
+                st.error(f"Model AI tidak dapat dimuat: {exc}")
 
     if st.session_state["pipeline_ready"]:
         st.success("Model dimuat")

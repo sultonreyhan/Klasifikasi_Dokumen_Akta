@@ -32,6 +32,30 @@ from App.utils.label_mapper import get_display_name, get_taxonomy
 LOGGER = logging.getLogger(__name__)
 
 
+def _validate_model_artifacts() -> None:
+    """Log model artifact availability and fail before attempting deserialization."""
+    model_dir = pipeline_config.MODEL_DIRECTORY
+    model_path = pipeline_config.MODEL_ARTIFACT_PATH
+    encoder_path = pipeline_config.LABEL_ENCODER_PATH
+
+    if model_dir.is_dir():
+        LOGGER.info("✓ Folder Models ditemukan: %s", model_dir)
+    else:
+        LOGGER.error("✗ Folder Models tidak ditemukan: %s", model_dir)
+
+    missing_paths: list[Path] = []
+    for artifact_path in (model_path, encoder_path):
+        if artifact_path.is_file():
+            LOGGER.info("✓ %s ditemukan", artifact_path.name)
+        else:
+            LOGGER.error("✗ %s tidak ditemukan: %s", artifact_path.name, artifact_path)
+            missing_paths.append(artifact_path)
+
+    if missing_paths:
+        missing = ", ".join(str(path) for path in missing_paths)
+        raise FileNotFoundError(f"Model artifact tidak ditemukan: {missing}")
+
+
 # ── Result record (Blueprint Section 20.1) ─────────────────────────────────
 
 @dataclass
@@ -84,6 +108,8 @@ def load_pipeline_resources() -> Dict[str, Any]:
             artifacts are missing or the pipeline fails to load.
     """
     LOGGER.info("Loading pipeline resources (first time).")
+
+    _validate_model_artifacts()
 
     clf = pipeline_train.load_model(pipeline_config.MODEL_ARTIFACT_PATH)
     encoder = pipeline_train.load_label_encoder(pipeline_config.LABEL_ENCODER_PATH)

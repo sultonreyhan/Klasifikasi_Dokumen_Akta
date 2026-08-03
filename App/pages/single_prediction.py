@@ -29,7 +29,7 @@ from App.services.ocr_service import extract_and_preview
 from App.services.prediction_service import run_single_prediction
 from App.utils.confidence_classifier import classify as classify_confidence
 from App.utils.file_validator import validate_single
-from App.utils.icons import icon, icon_heading, icon_markdown, inline_icon
+from App.utils.icons import icon_heading, icon_markdown
 from App.utils.label_mapper import get_display_name, get_taxonomy
 from App.utils.session_helpers import init_session_state, reset_single_state
 
@@ -159,7 +159,9 @@ elif stage == "result":
         st.session_state["single_stage"] = "idle"
         st.rerun()
 
-    st.success(f"{inline_icon('check-circle', 15)} Klasifikasi Selesai")
+    st.success(
+        f"{icon_markdown('check-circle', 15, 'berhasil')} Klasifikasi Selesai"
+    )
 
     display_name = get_display_name(result.predicted_class)
     taxonomy = get_taxonomy(result.predicted_class)
