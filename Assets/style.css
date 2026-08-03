@@ -330,6 +330,11 @@ button[aria-label="Main menu"]:hover {
 [data-testid="stFileUploaderDropzone"]:hover {
   border-color: var(--akta-primary);
 }
+[data-testid="stFileUploaderDropzone"] button {
+  background: var(--akta-primary-tint);
+  border: 1px solid var(--akta-primary-border);
+  color: var(--akta-primary-hover);
+}
 
 /* OCR text area uses monospace (matches session_helpers). */
 textarea[aria-label="Teks yang berhasil diekstraksi"] {
