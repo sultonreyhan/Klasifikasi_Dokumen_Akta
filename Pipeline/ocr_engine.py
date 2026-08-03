@@ -36,7 +36,8 @@ def get_ocr_engine() -> Any:
         from paddleocr import PaddleOCR
     except ImportError as exc:
         raise RuntimeError(
-            "PaddleOCR tidak tersedia. Install `paddleocr` untuk memproses OCR."
+            "Runtime OCR tidak tersedia. Pastikan `paddleocr` dan "
+            "`paddlepaddle` terpasang."
         ) from exc
 
     LOGGER.info("Initializing shared PaddleOCR/PaddleX resource.")

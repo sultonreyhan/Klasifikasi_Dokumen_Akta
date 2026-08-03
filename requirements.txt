@@ -13,6 +13,8 @@ sentencepiece
 
 # OCR
 PyMuPDF
+# PaddleOCR 3.x no longer installs its PaddlePaddle inference runtime itself.
+paddlepaddle==3.3.1
 paddleocr
 paddlex
 opencv-python-headless
