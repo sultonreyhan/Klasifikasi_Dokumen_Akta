@@ -20,6 +20,7 @@ from typing import Optional, Tuple
 
 from streamlit.runtime.uploaded_file_manager import UploadedFile
 
+from Pipeline.ocr_engine import get_ocr_engine
 from Pipeline import predict as pipeline_predict
 
 LOGGER = logging.getLogger(__name__)
@@ -57,16 +58,11 @@ def _save_to_temp(uploaded_file: UploadedFile) -> Path:
 
 
 def _ocr_image(image_path: Path) -> str:
-    """OCR a single image via PaddleOCR and return joined text lines."""
+    """OCR a single image using the shared PaddleOCR engine."""
     try:
-        from paddleocr import PaddleOCR
-    except ImportError as exc:
-        raise ValueError(
-            "PaddleOCR tidak tersedia. Install `paddleocr` untuk "
-            "memproses file gambar."
-        ) from exc
-
-    ocr = PaddleOCR(use_angle_cls=True, lang="id", show_log=False)
+        ocr = get_ocr_engine()
+    except RuntimeError as exc:
+        raise ValueError(str(exc)) from exc
     result = ocr.ocr(str(image_path), cls=True)
     lines: list[str] = []
     for block in result or []:

@@ -35,6 +35,7 @@ import numpy as np
 from Pipeline import config
 from Pipeline import embedding
 from Pipeline import train as train_pipeline
+from Pipeline.ocr_engine import get_ocr_engine
 
 LOGGER = logging.getLogger(__name__)
 
@@ -168,13 +169,9 @@ def _extract_pdf(source: Path) -> str:
 
 
 def _ocr_page(page) -> Optional[str]:
-    """Best-effort OCR of a single PDF page using PaddleOCR if installed."""
+    """Best-effort OCR of a page using the shared PaddleOCR engine."""
     try:
-        from paddleocr import PaddleOCR
-    except ImportError:
-        return None
-    try:
-        ocr = PaddleOCR(use_angle_cls=True, lang="id", show_log=False)
+        ocr = get_ocr_engine()
         result = ocr.ocr(page.get_pixmap(dpi=200), cls=True)
         lines = []
         for block in result or []:
