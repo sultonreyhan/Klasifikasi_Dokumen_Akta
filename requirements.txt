@@ -13,12 +13,8 @@ sentencepiece
 
 # OCR
 PyMuPDF
-# PaddleOCR 3.x depends on PaddleX, whose process-wide PDX initializer can
-# be re-entered by Streamlit's module runner. The application uses the stable
-# PaddleOCR 2.x ``ocr(...)`` API, so keep that API generation explicit and do
-# not install PaddleX.
-paddlepaddle==3.3.1
-paddleocr==2.9.1
+paddleocr
+paddlex
 opencv-python-headless
 Pillow
 
