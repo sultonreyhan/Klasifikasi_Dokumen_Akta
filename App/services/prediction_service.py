@@ -32,6 +32,10 @@ from App.utils.label_mapper import get_display_name, get_taxonomy
 LOGGER = logging.getLogger(__name__)
 
 
+class ModelArtifactsMissingError(FileNotFoundError):
+    """Raised only when a required local model artifact is unavailable."""
+
+
 def _validate_model_artifacts() -> None:
     """Log model artifact availability and fail before attempting deserialization."""
     model_dir = pipeline_config.MODEL_DIRECTORY
@@ -53,7 +57,7 @@ def _validate_model_artifacts() -> None:
 
     if missing_paths:
         missing = ", ".join(str(path) for path in missing_paths)
-        raise FileNotFoundError(f"Model artifact tidak ditemukan: {missing}")
+        raise ModelArtifactsMissingError(f"Model artifact tidak ditemukan: {missing}")
 
 
 # ── Result record (Blueprint Section 20.1) ─────────────────────────────────

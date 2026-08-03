@@ -22,7 +22,10 @@ import streamlit as st
 from App.utils.session_helpers import init_session_state, inject_custom_font
 from App.components.error_display import render_model_missing_error
 from App.services.metadata_service import load_model_metadata
-from App.services.prediction_service import load_pipeline_resources
+from App.services.prediction_service import (
+    ModelArtifactsMissingError,
+    load_pipeline_resources,
+)
 
 # ── Page configuration ─────────────────────────────────────────────────────
 st.set_page_config(
@@ -88,7 +91,7 @@ with st.sidebar:
             try:
                 load_pipeline_resources()
                 st.session_state["pipeline_ready"] = True
-            except FileNotFoundError:
+            except ModelArtifactsMissingError:
                 st.session_state["pipeline_ready"] = False
                 render_model_missing_error()
             except Exception as exc:
