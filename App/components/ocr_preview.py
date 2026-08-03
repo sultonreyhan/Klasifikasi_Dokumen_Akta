@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import streamlit as st
 
-from App.utils.icons import icon
+from App.utils.icons import icon, icon_markdown
 
 # ── Quality badge rendering ────────────────────────────────────────────────
 
@@ -87,13 +87,13 @@ def render_ocr_preview(
 
     col_ok, col_cancel = st.columns([1, 1])
     continue_pressed = col_ok.button(
-        f"{icon('arrow-right', 15)} Lanjut ke Klasifikasi",
+        f"{icon_markdown('arrow-right', 15, 'arrow')} Lanjut ke Klasifikasi",
         type="primary",
         width="stretch",
         key="ocr_continue",
     )
     cancel_pressed = col_cancel.button(
-        f"{icon('rotate-ccw', 15)} Ganti Dokumen",
+        f"{icon_markdown('rotate-ccw', 15, 'rotate')} Ganti Dokumen",
         width="stretch",
         key="ocr_cancel",
     )

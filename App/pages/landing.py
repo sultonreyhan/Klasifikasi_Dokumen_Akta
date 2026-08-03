@@ -16,7 +16,7 @@ if str(_PROJECT_ROOT) not in sys.path:
 import streamlit as st
 
 from App.components.model_info_card import render_model_info
-from App.utils.icons import icon
+from App.utils.icons import icon, icon_markdown
 from App.utils.session_helpers import init_session_state
 
 init_session_state()
@@ -72,7 +72,7 @@ with col_single:
         unsafe_allow_html=True,
     )
     if st.button(
-        f"{icon('arrow-right', 15)} Mulai",
+        f"{icon_markdown('arrow-right', 15, 'arrow')} Mulai",
         type="primary",
         width="stretch",
         key="nav_single",
@@ -90,7 +90,7 @@ with col_batch:
         unsafe_allow_html=True,
     )
     if st.button(
-        f"{icon('arrow-right', 15)} Mulai",
+        f"{icon_markdown('arrow-right', 15, 'arrow')} Mulai",
         type="primary",
         width="stretch",
         key="nav_batch",

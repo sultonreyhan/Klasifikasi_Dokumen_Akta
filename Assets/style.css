@@ -126,31 +126,71 @@ html, body, [class*="css"] {
 
 /* ── Sidebar ──────────────────────────────────────────────────────────── */
 
+/* ── Streamlit top app menu / hamburger visibility ───────────────────────── */
+#MainMenu,
+button[title="Main menu"],
+button[aria-label="Main menu"] {
+  opacity: 1 !important;
+  color: var(--akta-text) !important;
+  background: transparent !important;
+}
+#MainMenu svg,
+button[title="Main menu"] svg,
+button[aria-label="Main menu"] svg {
+  fill: var(--akta-text) !important;
+  stroke: var(--akta-text) !important;
+}
+button[title="Main menu"]:hover,
+button[aria-label="Main menu"]:hover {
+  background: rgba(37, 99, 235, 0.1) !important;
+}
+
 [data-testid="stSidebar"] {
-  background: var(--akta-card);
+  background: #EFF6FF;
   border-right: 1px solid var(--akta-border);
+  color: var(--akta-text);
 }
 
 [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] {
   color: var(--akta-text);
 }
+[data-testid="stSidebar"] button[data-testid="stSidebarNavLink"] {
+  color: var(--akta-text);
+  font-weight: 600;
+  border-radius: 12px;
+  margin: 4px 0;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+[data-testid="stSidebar"] button[data-testid="stSidebarNavLink"]:hover {
+  background: rgba(37, 99, 235, 0.12);
+  color: var(--akta-primary-hover);
+}
+[data-testid="stSidebar"] button[data-testid="stSidebarNavLink"][aria-current="page"],
+[data-testid="stSidebar"] button[data-testid="stSidebarNavLink"][data-active="true"] {
+  background: var(--akta-primary);
+  color: #FFFFFF;
+}
+[data-testid="stSidebar"] button[data-testid="stSidebarNavLink"] svg {
+  color: inherit;
+}
 
 .akta-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 2px 0 4px 0;
+  gap: 14px;
+  padding: 8px 0 10px 0;
 }
 .akta-brand .akta-brand-logo {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
   flex: 0 0 auto;
+  box-shadow: 0 8px 20px -14px rgba(37, 99, 235, 0.45);
 }
 .akta-brand .akta-brand-name {
-  font-size: 1.12rem;
+  font-size: 1.22rem;
   font-weight: 800;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   color: var(--akta-text);
 }
 
@@ -218,7 +258,9 @@ html, body, [class*="css"] {
 
 /* Icons inside buttons inherit the button text colour. */
 .stButton > button svg,
-.stDownloadButton > button svg {
+.stDownloadButton > button svg,
+.stButton > button img,
+.stDownloadButton > button img {
   vertical-align: -2px;
   margin-right: 6px;
 }
@@ -356,6 +398,7 @@ hr {
   border-radius: var(--akta-radius-lg);
   box-shadow: var(--akta-shadow);
   padding: 1.25rem 1.35rem;
+  min-height: 235px;
   height: 100%;
   transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
 }
@@ -368,23 +411,26 @@ hr {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
   background: var(--akta-primary-tint);
   color: var(--akta-primary);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+}
+.akta-mode-card .akta-mode-icon svg {
+  display: block;
 }
 .akta-mode-card .akta-mode-title {
-  font-size: 1.12rem;
+  font-size: 1.16rem;
   font-weight: 700;
   color: var(--akta-text);
-  margin: 0 0 6px 0;
+  margin: 0 0 8px 0;
 }
 .akta-mode-card .akta-mode-desc {
   color: var(--akta-text-secondary);
-  font-size: 0.92rem;
-  line-height: 1.55;
+  font-size: 0.94rem;
+  line-height: 1.6;
   margin: 0;
 }
 
@@ -469,15 +515,34 @@ hr {
 /* ── Tags / chips ─────────────────────────────────────────────────────── */
 
 .akta-chip {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: var(--akta-primary-tint);
   border: 1px solid var(--akta-primary-border);
   color: var(--akta-primary-hover);
   border-radius: 999px;
-  padding: 3px 12px;
+  padding: 5px 14px;
   font-size: 0.82rem;
-  font-weight: 600;
-  margin: 3px;
+  font-weight: 700;
+  margin: 4px 4px 4px 0;
+}
+
+.akta-confidence {
+  font-weight: 700;
+  color: var(--akta-text);
+}
+.akta-confidence span {
+  color: var(--akta-primary);
+}
+
+.akta-note-strip {
+  background: rgba(37, 99, 235, 0.06);
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  font-size: 0.9rem;
+  color: var(--akta-text);
 }
 
 /* ── Batch summary stat cards ─────────────────────────────────────────── */

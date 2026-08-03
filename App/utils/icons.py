@@ -11,6 +11,8 @@ a Lucide icon (nav/pages use Streamlit Material Symbols instead).
 
 from __future__ import annotations
 
+import base64
+
 # ── Lucide icon path data (24x24 viewBox, stroke-based) ─────────────────────
 # Source: https://lucide.dev — each entry is the inner SVG markup.
 
@@ -166,10 +168,29 @@ def icon(name: str, size: int = 16, class_: str = "") -> str:
     cls = f' class="{class_}"' if class_ else ""
     return (
         f'<svg{cls} width="{size}" height="{size}" viewBox="0 0 24 24" '
+        'xmlns="http://www.w3.org/2000/svg" role="img" '
         'fill="none" stroke="currentColor" stroke-width="2" '
-        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+        'stroke-linecap="round" stroke-linejoin="round" '
+        'aria-hidden="true" preserveAspectRatio="xMidYMid meet">'
         f"{paths}</svg>"
     )
+
+
+def icon_markdown(name: str, size: int = 16, alt: str = "icon") -> str:
+    """Return a markdown image tag for the Lucide icon so Streamlit buttons and headers render it."""
+    paths = _ICONS.get(name)
+    if paths is None:
+        return ""
+    svg = (
+        f'<svg width="{size}" height="{size}" viewBox="0 0 24 24" '
+        'xmlns="http://www.w3.org/2000/svg" role="img" '
+        'fill="none" stroke="currentColor" stroke-width="2" '
+        'stroke-linecap="round" stroke-linejoin="round" '
+        'aria-hidden="true" preserveAspectRatio="xMidYMid meet">'
+        f"{paths}</svg>"
+    )
+    encoded = base64.b64encode(svg.encode("utf-8")).decode("ascii")
+    return f'![{alt}](data:image/svg+xml;base64,{encoded})'
 
 
 def inline_icon(name: str, size: int = 14) -> str:

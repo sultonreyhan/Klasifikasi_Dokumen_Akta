@@ -21,7 +21,7 @@ from App.services.ocr_service import extract_and_preview
 from App.services.prediction_service import run_single_prediction
 from App.utils.confidence_classifier import classify as classify_confidence
 from App.utils.file_validator import validate_single
-from App.utils.icons import icon, icon_heading, inline_icon
+from App.utils.icons import icon, icon_heading, icon_markdown, inline_icon
 from App.utils.label_mapper import get_display_name, get_taxonomy
 from App.utils.session_helpers import init_session_state, reset_single_state
 
@@ -65,7 +65,7 @@ if stage == "idle":
         st.session_state["single_uploaded_file"] = uploaded_file
         st.session_state["single_file_source"] = source
         if st.button(
-            f"{icon('play', 15)} Proses Dokumen",
+            f"{icon_markdown('play', 15, 'play')} Proses Dokumen",
             type="primary",
             width="stretch",
             key="single_proceed",
@@ -182,7 +182,7 @@ elif stage == "result":
     )
 
     if st.button(
-        f"{icon('rotate-ccw', 15)} Prediksi Dokumen Lain",
+        f"{icon_markdown('rotate-ccw', 15, 'rotate')} Prediksi Dokumen Lain",
         type="secondary",
         width="stretch",
         key="single_reset",
