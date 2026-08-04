@@ -35,7 +35,7 @@ import numpy as np
 from Pipeline import config
 from Pipeline import embedding
 from Pipeline import train as train_pipeline
-from Pipeline.ocr_engine import get_ocr_engine
+from Pipeline.ocr_engine import get_ocr_engine, recognize_text
 
 LOGGER = logging.getLogger(__name__)
 
@@ -105,7 +105,7 @@ def extract_text(source: Path) -> str:
 
     Supported formats:
 
-    - ``.pdf``    native text layer; OCR (PaddleOCR) fallback when a page has
+    - ``.pdf``    native text layer; OCR (RapidOCR) fallback when a page has
                   no embedded text (graceful skip if the OCR engine is absent)
     - ``.docx``   via ``python-docx``
 
@@ -169,15 +169,19 @@ def _extract_pdf(source: Path) -> str:
 
 
 def _ocr_page(page) -> Optional[str]:
-    """Best-effort OCR of a page using the shared PaddleOCR engine."""
+    """Best-effort OCR of a page using the shared RapidOCR engine."""
     try:
         ocr = get_ocr_engine()
-        result = ocr.ocr(page.get_pixmap(dpi=200))
-        lines = []
-        for block in result or []:
-            for line in block or []:
-                lines.append(line[1][0])
-        return "\n".join(lines)
+        pixmap = page.get_pixmap(dpi=200)
+        image = np.frombuffer(pixmap.samples, dtype=np.uint8).reshape(
+            pixmap.height, pixmap.width, pixmap.n
+        )
+        if image.shape[2] == 4:
+            image = image[:, :, :3]
+        elif image.shape[2] == 1:
+            image = np.repeat(image, 3, axis=2)
+        text = recognize_text(ocr, image)
+        return text or None
     except Exception as exc:  # pragma: no cover - OCR is best-effort
         LOGGER.warning("OCR failed for a page: %s", exc)
         return None

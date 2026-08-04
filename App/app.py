@@ -8,12 +8,6 @@ Run with:
 (from the project root so that Pipeline/ is on the Python path)
 """
 
-import os
-# Configure PaddleX environment variables process-wide before any imports
-os.environ["PADDLE_PDX_EAGER_INIT"] = "False"
-os.environ["PADDLE_PDX_ENABLE_MKLDNN_BYDEFAULT"] = "False"
-os.environ["PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK"] = "True"
-
 import sys
 from pathlib import Path
 

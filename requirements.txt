@@ -1,28 +1,37 @@
-# Machine Learning
-numpy
-pandas
-scikit-learn
-joblib
-tqdm
+# AktaSense — pinned dependency set.
+# Versions mirror the tested local environment (Python 3.12/3.13) and are
+# verified compatible with Streamlit Community Cloud (Linux x86_64, CPU).
 
-torch
-torchvision
-transformers
-sentence-transformers
-sentencepiece
+# --------------------------------------------------------------------------- #
+# Machine Learning / embeddings
+# --------------------------------------------------------------------------- #
+numpy==2.3.5
+pandas==3.0.5
+scikit-learn==1.9.0
+joblib==1.5.3
+tqdm==4.70.0
 
-# OCR
-PyMuPDF
-# PaddleOCR 3.x no longer installs its PaddlePaddle inference runtime itself.
-paddlepaddle==3.3.1
-paddleocr
-paddlex
-opencv-python-headless
-Pillow
+torch==2.13.0
+transformers==5.14.1
+sentencepiece==0.2.2
 
+# --------------------------------------------------------------------------- #
+# OCR (RapidOCR — PP-OCR models via ONNX Runtime; replaces PaddleOCR stack)
+# --------------------------------------------------------------------------- #
+rapidocr==3.9.2
+onnxruntime==1.28.0
+opencv-python==4.10.0.84
+PyMuPDF==1.28.0
+Pillow==12.3.0
+python-docx==1.2.0
+
+# --------------------------------------------------------------------------- #
 # Explainability
-shap
+# --------------------------------------------------------------------------- #
+shap==0.52.0
 
-# Streamlit
-streamlit
-openpyxl
+# --------------------------------------------------------------------------- #
+# Streamlit application
+# --------------------------------------------------------------------------- #
+streamlit==1.60.0
+openpyxl==3.1.5
