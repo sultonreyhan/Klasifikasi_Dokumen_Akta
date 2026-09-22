@@ -57,3 +57,10 @@ logs/
 *.swp
 .DS_Store
 Thumbs.db
+
+audit_model_rekomendasi.md
+Executive_Summary.md
+Pipeline_Verification_Report.md
+Quality_Assurance_Report.md
+search_model_train_report.md
+Validation_Checklist.csv

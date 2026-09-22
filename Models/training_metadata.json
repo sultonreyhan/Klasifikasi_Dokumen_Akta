@@ -1,51 +1,59 @@
 {
-  "model": "RandomForestClassifier",
-  "embedding_model": "indobenchmark/indobert-base-p1",
-  "embedding_pooling": "mean_pooling",
-  "embedding_dimension": 768,
-  "num_samples": 32,
-  "num_classes": 7,
-  "label_list": [
-    "ajb",
-    "akta_pendirian",
-    "hibah",
-    "pernyataan",
-    "pkr",
-    "ppjb",
-    "waris"
-  ],
-  "train_size": 25,
-  "test_size": 7,
-  "test_fraction": 0.2,
-  "oob_score": 0.64,
-  "hyperparameters": {
-    "bootstrap": true,
-    "ccp_alpha": 0.0,
-    "class_weight": "balanced_subsample",
+  "workflow": "MASTER PROMPT 03",
+  "milestone": "3 - Random Forest Training",
+  "date": "2026-08-05T07:10:19.983847",
+  "model_type": "RandomForestClassifier",
+  "parameters": {
+    "n_estimators": 100,
     "criterion": "gini",
     "max_depth": null,
-    "max_features": "sqrt",
-    "max_leaf_nodes": null,
-    "max_samples": null,
-    "min_impurity_decrease": 0.0,
-    "min_samples_leaf": 1,
     "min_samples_split": 2,
-    "min_weight_fraction_leaf": 0.0,
-    "monotonic_cst": null,
-    "n_estimators": 200,
-    "n_jobs": -1,
-    "oob_score": true,
+    "min_samples_leaf": 1,
+    "bootstrap": true,
+    "class_weight": "balanced",
     "random_state": 42,
-    "verbose": 0,
-    "warm_start": false
+    "n_jobs": -1
   },
-  "validation": {
-    "total_rows": 32,
-    "empty_text": 0,
-    "missing_labels": 0,
-    "duplicate_rows": 0,
-    "valid": true
+  "training_samples": 352,
+  "testing_samples": 89,
+  "num_classes": 7,
+  "classes": [
+    "AJB",
+    "Akta Pendirian",
+    "Hibah",
+    "PKR",
+    "PPJB",
+    "Pernyataan",
+    "Waris"
+  ],
+  "class_distribution_train": {
+    "0": 204,
+    "1": 37,
+    "2": 13,
+    "3": 15,
+    "4": 24,
+    "5": 45,
+    "6": 14
   },
-  "training_time_seconds": 261.648,
-  "timestamp_utc": "2026-08-03T03:33:21.321787+00:00"
+  "class_distribution_test": {
+    "0": 51,
+    "1": 10,
+    "2": 3,
+    "3": 4,
+    "4": 6,
+    "5": 11,
+    "6": 4
+  },
+  "feature_matrix_shape": [
+    441,
+    768
+  ],
+  "embedding_dimension": 768,
+  "embedding_model": "indobenchmark/indobert-base-p1",
+  "training_duration_seconds": 0.26,
+  "random_state": 42,
+  "stratified_split": true,
+  "test_size": 0.2,
+  "ground_truth_source": "GroundTruth_Label.csv",
+  "excluded_review_required": 517
 }
